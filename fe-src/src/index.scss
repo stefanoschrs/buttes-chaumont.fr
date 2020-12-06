@@ -1,0 +1,14 @@
+@import "~bulma";
+
+body {
+  min-height: 100vh;
+
+  background-image: url(https://www.theuiaa.org/wp-content/uploads/2017/11/RTM19-banner-web.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  #root {
+    background-color: rgba(white, .25);
+  }
+}

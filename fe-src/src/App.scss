@@ -1,0 +1,18 @@
+.App {
+  .section.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    height: 50vh;
+  }
+
+  .leaderboard {
+    .subtitle {
+      padding: .5rem .75rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+  }
+}
