@@ -1,11 +1,41 @@
 .App {
   .section.home {
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
+
+    background-color: black;
+    color: white;
 
     height: 50vh;
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+
+      background-image: url(assets/Parc_des_Buttes_Chaumont_Sep_2012.jpg);
+      background-position: top center;
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      opacity: .5;
+    }
+
+    .content {
+      z-index: 1;
+
+      .title {
+        color: inherit;
+      }
+    }
   }
 
   .leaderboard {
@@ -14,5 +44,36 @@
       margin-bottom: 1rem;
       font-weight: bold;
     }
+  }
+
+  .footer {
+    padding: 2rem 0;
+
+    .social {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.StravaButton {
+  $bgc: #fc4c02;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // Brand guidelines
+  padding-left: calc(50px / 4);
+
+  border-radius: 5px;
+  background-color: $bgc;
+  color: white;
+
+  font-size: 20px;
+
+  transition: background-color .2s;
+
+  &:hover {
+    background-color: lighten($bgc, 2.5%);
   }
 }

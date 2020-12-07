@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Column, usePagination, useTable } from 'react-table'
 
 import './App.scss'
+import stravaLogo from './assets/strava.svg'
 
 const syncLink = 'http://www.strava.com/oauth/authorize?'
   + `client_id=${process.env.REACT_APP_STRAVA_CLIENT_ID}`
@@ -25,6 +26,15 @@ const baseColumns = [
     accessor: 'efforts'
   },
 ] as Column[]
+
+function StravaButton () {
+  return (
+    <div className="StravaButton">
+      <span>Update my stats</span>
+      <img src={stravaLogo} alt="Strava Logo"/>
+    </div>
+  )
+}
 
 function Table (props: any) {
   const {
@@ -161,20 +171,35 @@ function App () {
   return (
     <div className="App">
       <section className="section home">
-        <h1 className="title">BC</h1>
+        <div className="overlay"/>
 
-        <a href={syncLink}>
-          <button className="button is-primary">
-            Update my stats
-          </button>
-        </a>
+        <div className="content">
+          <h1 className="title">Parc des Buttes Chaumont</h1>
+
+          <a href={syncLink}>
+            <StravaButton />
+          </a>
+        </div>
       </section>
 
       <section className="section">
+        <h1 className="title has-text-centered">Leaderboard</h1>
+        <br/>
+
         <div className="columns">
           {leaderboards}
         </div>
       </section>
+
+      <footer className="footer has-text-grey has-background-grey-darker has-text-centered">
+        <div>&copy; buttes-chaumont.fr {new Date().getFullYear()}</div>
+
+        <div className="social">
+          <a rel="noreferrer noopener nofollow" target="_blank" href="https://www.facebook.com/buttes-chaumont.fr/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#7a7a7a" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-3 7h-1.924c-.615 0-1.076.252-1.076.889v1.111h3l-.238 3h-2.762v8h-3v-8h-2v-3h2v-1.923c0-2.022 1.064-3.077 3.461-3.077h2.539v3z"/></svg>
+          </a>
+        </div>
+      </footer>
     </div>
   )
 }

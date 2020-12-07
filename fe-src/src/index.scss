@@ -1,14 +1,10 @@
 @import "~bulma";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
 body {
   min-height: 100vh;
 
-  background-image: url(https://www.theuiaa.org/wp-content/uploads/2017/11/RTM19-banner-web.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #f7f7f7;
 
-  #root {
-    background-color: rgba(white, .25);
-  }
+  font-family: 'Noto Sans', sans-serif;
 }
