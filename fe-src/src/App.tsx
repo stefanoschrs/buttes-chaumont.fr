@@ -141,31 +141,59 @@ function Table (props: any) {
 }
 
 function App () {
+  const [data, setData] = useState([] as any)
+  const [activeTabIndex, setActiveTabIndex] = useState(0)
+  const [tabsHeaderItems, setTabsHeaderItems] = useState([] as JSX.Element[])
   const [leaderboards, setLeaderboards] = useState([] as JSX.Element[])
 
   useEffect(init, [])
+  useEffect(processData, [data, activeTabIndex])
 
   function init () {
     async function loadData () {
       const res = await fetch(`${process.env.REACT_APP_API_BASE}/segments`)
-      const data = await res.json()
+      const dat = await res.json()
 
-      setLeaderboards(data.map((segment: any) => {
-        return (
-          <div key={segment.id} className="column is-half leaderboard">
-            <div className="box">
-              <h2 className="subtitle">
-                {segment.segmentName}
-              </h2>
-
-              <Table columns={baseColumns} data={segment.entries} />
-            </div>
-          </div>
-        )
-      }))
+      dat.sort((a: any, b: any) => a.segmentName > b.segmentName ? -1 : 1)
+      setData([...dat.slice(2, 4), ...dat.slice(0, 2)])
     }
 
     loadData()
+  }
+
+  function processData () {
+    if (!data.length) {
+      return
+    }
+
+    setTabsHeaderItems(data.map((segment: any, index: number) => {
+      return (
+        <li key={index}
+            className={activeTabIndex === index ? 'is-active' : ''}
+            onClick={() => setActiveTabIndex(index)}>
+          {/* eslint-disable-next-line*/}
+          <a>{segment.segmentName}</a>
+        </li>
+      )
+    }))
+
+    const curSegment = data[activeTabIndex]
+    setLeaderboards([
+      <div key={curSegment.id} className="column is-half leaderboard">
+        <div className="box">
+          <h2 className="subtitle">Time</h2>
+
+          <Table columns={baseColumns} data={curSegment.entries} />
+        </div>
+      </div>,
+      <div key={curSegment.id} className="column is-half leaderboard">
+        <div className="box">
+          <h2 className="subtitle">Efforts</h2>
+
+          <Table columns={baseColumns} data={curSegment.entries} />
+        </div>
+      </div>
+    ])
   }
 
   return (
@@ -185,6 +213,12 @@ function App () {
       <section className="section">
         <h1 className="title has-text-centered">Leaderboard</h1>
         <br/>
+
+        <div className="tabs is-centered">
+          <ul>
+            {tabsHeaderItems}
+          </ul>
+        </div>
 
         <div className="columns">
           {leaderboards}

@@ -34,17 +34,20 @@ func Init() (db DB, err error) {
 
 	// Seed
 	segments := map[uint]string{
-		5286734: "Loop",
+		26676957: "5K des Buttes-Chaumont 🏃‍♂️",
+		26676947: "10K des Buttes-Chaumont 🏃‍♂️",
+		26676910: "Semi Marathon des Buttes-Chaumont 🏃‍♂️",
+		26676892: "Marathon des Buttes-Chaumont 🏃‍♂️",
 	}
 	for id, name := range segments {
 		res := db.
 			Clauses(clause.OnConflict{DoNothing: true}).
 			Create(&types.Segment{
-			Model: gorm.Model{
-				ID: id,
-			},
-			Name:  name,
-		})
+				Model: gorm.Model{
+					ID: id,
+				},
+				Name: name,
+			})
 		if res.Error != nil {
 			err = res.Error
 			return
@@ -98,8 +101,8 @@ func (db DB) GetSegments() (segments []types.Segment, err error) {
 }
 
 func (db DB) GetSegmentsWithEntries() (segments []types.SegmentWithEntries, err error) {
-	var rows []struct{
-		SegmentId uint `json:"segmentId"`
+	var rows []struct {
+		SegmentId   uint   `json:"segmentId"`
 		SegmentName string `json:"segmentName"`
 
 		Efforts uint `json:"efforts"`
