@@ -39,11 +39,30 @@
     }
   }
 
-  .leaderboard {
-    .subtitle {
-      padding: .5rem .75rem;
+  .section.history {
+    .paragraph {
+      font-size: 1.25rem;
       margin-bottom: 1rem;
-      font-weight: bold;
+    }
+  }
+
+  .section.leaderboards {
+    .leaderboard {
+      .subtitle {
+        padding: .5rem .75rem;
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .section.instagram {
+    .loading-container {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

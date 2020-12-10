@@ -20,7 +20,7 @@ func GetSegments(c *gin.Context) {
 
 	segments, err := db.GetSegmentsWithEntries()
 	if err != nil {
-		log.Println(err)
+		log.Println("db.GetSegmentsWithEntries", err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
@@ -36,21 +36,21 @@ func GetStravaCallback(c *gin.Context) {
 	client := strava.NewClient()
 	athlete, err := client.Authorize(code)
 	if err != nil {
-		log.Println(err)
+		log.Println("client.Authorize", err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
 
 	err = db.CreateAthlete(athlete)
 	if err != nil {
-		log.Println(err)
+		log.Println("db.CreateAthlete", err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
 
 	segments, err := db.GetSegments()
 	if err != nil {
-		log.Println(err)
+		log.Println("db.GetSegments", err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
@@ -58,14 +58,14 @@ func GetStravaCallback(c *gin.Context) {
 	for _, segment := range segments {
 		pr, efforts, err2 := client.GetSegmentEfforts(segment.ID)
 		if err2 != nil {
-			log.Println(err2)
+			log.Println("client.GetSegmentEfforts", err2)
 			c.AbortWithStatus(http.StatusInternalServerError)
 			return
 		}
 
 		err2 = db.UpdateAthleteSegmentStats(athlete.ID, segment.ID, pr, efforts)
 		if err2 != nil {
-			log.Println(err2)
+			log.Println("db.UpdateAthleteSegmentStats", err2)
 			c.AbortWithStatus(http.StatusInternalServerError)
 			return
 		}
