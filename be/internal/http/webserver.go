@@ -27,7 +27,8 @@ func SetRoutes(router *gin.Engine) {
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowCredentials = true
 	corsConfig.AllowOrigins = []string{
-		os.Getenv("feUrl"),
+		"https://stefanoschrs.github.io",
+		"https://buttes-chaumont.fr",
 	}
 	if gin.IsDebugging() {
 		corsConfig.AllowOrigins = []string{"*"}
