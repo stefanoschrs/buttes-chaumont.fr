@@ -26,11 +26,11 @@ func SetRoutes(router *gin.Engine) {
 	// CORS
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowCredentials = true
-	corsConfig.AllowOrigins = []string{}
+	corsConfig.AllowOrigins = []string{
+		os.Getenv("feUrl"),
+	}
 	if gin.IsDebugging() {
-		corsConfig.AllowOrigins = append(corsConfig.AllowOrigins,
-			"http://localhost:3000",
-		)
+		corsConfig.AllowOrigins = []string{"*"}
 	}
 
 	// Public routes: /

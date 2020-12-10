@@ -13,5 +13,5 @@ endif
 build:
 	go build .
 ifdef upx
-	upx $(basename $(pwd))
+	upx $$(basename $$(pwd))
 endif
