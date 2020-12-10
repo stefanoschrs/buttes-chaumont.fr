@@ -56,14 +56,14 @@ func GetStravaCallback(c *gin.Context) {
 	}
 
 	for _, segment := range segments {
-		efforts, err2 := client.GetSegmentEfforts(segment.ID)
+		pr, efforts, err2 := client.GetSegmentEfforts(segment.ID)
 		if err2 != nil {
 			log.Println(err2)
 			c.AbortWithStatus(http.StatusInternalServerError)
 			return
 		}
 
-		err2 = db.UpdateAthleteEfforts(athlete.ID, segment.ID, efforts)
+		err2 = db.UpdateAthleteSegmentStats(athlete.ID, segment.ID, pr, efforts)
 		if err2 != nil {
 			log.Println(err2)
 			c.AbortWithStatus(http.StatusInternalServerError)

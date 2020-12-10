@@ -69,15 +69,17 @@ func (db DB) CreateAthlete(athlete types.Athlete) (err error) {
 	return
 }
 
-func (db DB) UpdateAthleteEfforts(athleteId uint, segmentId uint, efforts uint) (err error) {
+func (db DB) UpdateAthleteSegmentStats(athleteId, segmentId, pr, efforts uint) (err error) {
 	entry := types.Entry{
 		SegmentId: segmentId,
 		AthleteId: athleteId,
+		PR:        pr,
 		Efforts:   efforts,
 	}
 	res := db.
 		Where(entry).
 		Assign(types.Entry{
+			PR:      pr,
 			Efforts: efforts,
 		}).
 		FirstOrCreate(&entry)
@@ -105,6 +107,7 @@ func (db DB) GetSegmentsWithEntries() (segments []types.SegmentWithEntries, err 
 		SegmentId   uint   `json:"segmentId"`
 		SegmentName string `json:"segmentName"`
 
+		PR      uint `json:"pr"`
 		Efforts uint `json:"efforts"`
 
 		types.Athlete
@@ -112,10 +115,9 @@ func (db DB) GetSegmentsWithEntries() (segments []types.SegmentWithEntries, err 
 	res := db.
 		Unscoped().
 		Table("segments s").
-		Select("s.id segment_id, s.name segment_name, e.efforts, a.*").
+		Select("s.id segment_id, s.name segment_name, e.pr, e.efforts, a.*").
 		Joins("LEFT JOIN entries e ON e.segment_id = s.id").
 		Joins("LEFT JOIN athletes a on e.athlete_id = a.id").
-		Order("e.efforts DESC").
 		Find(&rows)
 	if res.Error != nil {
 		err = res.Error
@@ -138,6 +140,7 @@ func (db DB) GetSegmentsWithEntries() (segments []types.SegmentWithEntries, err 
 				Name:     row.Name,
 				Sex:      row.Sex,
 				ImageUrl: row.ImageUrl,
+				PR:       row.PR,
 				Efforts:  row.Efforts,
 			})
 		}

@@ -86,7 +86,7 @@ func (s Strava) Authorize(code string) (athlete types.Athlete, err error) {
 	}
 
 	athlete = types.Athlete{
-		Model:    gorm.Model{
+		Model: gorm.Model{
 			ID: body.Athlete.Id,
 		},
 		Name:     body.Athlete.FirstName + " " + body.Athlete.LastName,
@@ -94,12 +94,12 @@ func (s Strava) Authorize(code string) (athlete types.Athlete, err error) {
 		ImageUrl: body.Athlete.Profile,
 	}
 
-	s.SetHeader("Authorization", "Bearer " + body.AccessToken)
+	s.SetHeader("Authorization", "Bearer "+body.AccessToken)
 
 	return
 }
 
-func (s Strava) GetSegmentEfforts(segmentId uint) (efforts uint, err error) {
+func (s Strava) GetSegmentEfforts(segmentId uint) (pr uint, efforts uint, err error) {
 	res, err := s.R().
 		Get(fmt.Sprintf("https://www.strava.com/api/v3/segments/%d", segmentId))
 	if err != nil {
@@ -182,7 +182,8 @@ func (s Strava) GetSegmentEfforts(segmentId uint) (efforts uint, err error) {
 
 	var segmentBody struct {
 		AthleteSegmentStats struct {
-			EffortCount   uint   `json:"effort_count"`
+			PrElapsedTime uint `json:"pr_elapsed_time"`
+			EffortCount   uint `json:"effort_count"`
 		} `json:"athlete_segment_stats"`
 	}
 	err = json.Unmarshal(res.Body(), &segmentBody)
@@ -190,6 +191,7 @@ func (s Strava) GetSegmentEfforts(segmentId uint) (efforts uint, err error) {
 		return
 	}
 
+	pr = segmentBody.AthleteSegmentStats.PrElapsedTime
 	efforts = segmentBody.AthleteSegmentStats.EffortCount
 	return
 }

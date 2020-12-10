@@ -4,11 +4,15 @@ import { Column, usePagination, useTable } from 'react-table'
 import './App.scss'
 import stravaLogo from './assets/strava.svg'
 
+interface Entry {
+  pr: number
+  efforts: number
+}
+
 const syncLink = 'http://www.strava.com/oauth/authorize?'
   + `client_id=${process.env.REACT_APP_STRAVA_CLIENT_ID}`
   + '&response_type=code'
   + `&redirect_uri=${process.env.REACT_APP_API_BASE}/strava/callback`
-  + '&approval_prompt=force'
   + '&scope=read'
 const baseColumns = [
   {
@@ -19,13 +23,29 @@ const baseColumns = [
     id: 'name',
     Header: 'Name',
     accessor: 'name'
-  },
+  }
+] as Column[]
+const prColumns = [
+  ...baseColumns,
+  {
+    id: 'pr',
+    Header: 'Time',
+    accessor: 'pr',
+    Cell: (props: any) => {
+      const date = new Date(0)
+      date.setSeconds(props.cell.value)
+      return date.toISOString().substr(11, 8)
+    }
+  }
+]
+const effortsColumns = [
+  ...baseColumns,
   {
     id: 'efforts',
     Header: 'Efforts',
     accessor: 'efforts'
-  },
-] as Column[]
+  }
+]
 
 function StravaButton () {
   return (
@@ -183,14 +203,14 @@ function App () {
         <div className="box">
           <h2 className="subtitle">Time</h2>
 
-          <Table columns={baseColumns} data={curSegment.entries} />
+          <Table columns={prColumns} data={curSegment.entries.sort((a: Entry, b: Entry) => a.efforts - b.efforts)} />
         </div>
       </div>,
       <div key={curSegment.id} className="column is-half leaderboard">
         <div className="box">
           <h2 className="subtitle">Efforts</h2>
 
-          <Table columns={baseColumns} data={curSegment.entries} />
+          <Table columns={effortsColumns} data={curSegment.entries.sort((a: Entry, b: Entry) => a.pr - b.pr)} />
         </div>
       </div>
     ])
