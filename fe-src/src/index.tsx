@@ -17,3 +17,12 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals()
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('./sw.js', {})
+    .then((registration) => {
+      console.log(registration)
+    })
+    .catch((error) => console.log('Registration failed with ' + error))
+}
