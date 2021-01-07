@@ -17,8 +17,8 @@ type Segment struct {
 }
 
 type Entry struct {
-	SegmentId uint `json:"segmentId"`
-	AthleteId uint `json:"athleteId"`
+	SegmentId uint `json:"segmentId" gorm:"primaryKey"`
+	AthleteId uint `json:"athleteId" gorm:"primaryKey"`
 	PR        uint `json:"pr"`
 	Efforts   uint `json:"efforts"`
 }

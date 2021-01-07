@@ -77,12 +77,10 @@ func (db DB) UpdateAthleteSegmentStats(athleteId, segmentId, pr, efforts uint) (
 		Efforts:   efforts,
 	}
 	res := db.
-		Where(entry).
-		Assign(types.Entry{
-			PR:      pr,
-			Efforts: efforts,
+		Clauses(clause.OnConflict{
+			UpdateAll: true,
 		}).
-		FirstOrCreate(&entry)
+		Create(&entry)
 	if res.Error != nil {
 		err = res.Error
 		return

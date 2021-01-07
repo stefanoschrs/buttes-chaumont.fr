@@ -18,7 +18,7 @@ func printIntro() {
 	i := "\033[36;1m"
 	i2 := "\033[34;1m"
 	d := "\033[0m"
-	fmt.Println(i + `Buttes` + i2 + `Chaumont` + d)
+	fmt.Println(i + `Buttes ` + i2 + `Chaumont` + d)
 	fmt.Println()
 }
 
