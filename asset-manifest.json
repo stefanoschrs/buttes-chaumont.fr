@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "./static/css/main.05e05e5e.chunk.css",
-    "main.js": "./static/js/main.c12e99b9.chunk.js",
-    "main.js.map": "./static/js/main.c12e99b9.chunk.js.map",
+    "main.css": "./static/css/main.e831197d.chunk.css",
+    "main.js": "./static/js/main.b7c13930.chunk.js",
+    "main.js.map": "./static/js/main.b7c13930.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.e8725df1.js",
     "runtime-main.js.map": "./static/js/runtime-main.e8725df1.js.map",
     "static/js/2.a0177690.chunk.js": "./static/js/2.a0177690.chunk.js",
     "static/js/2.a0177690.chunk.js.map": "./static/js/2.a0177690.chunk.js.map",
     "index.html": "./index.html",
-    "static/css/main.05e05e5e.chunk.css.map": "./static/css/main.05e05e5e.chunk.css.map",
+    "static/css/main.e831197d.chunk.css.map": "./static/css/main.e831197d.chunk.css.map",
     "static/js/2.a0177690.chunk.js.LICENSE.txt": "./static/js/2.a0177690.chunk.js.LICENSE.txt",
     "static/media/App.scss": "./static/media/Parc_des_Buttes_Chaumont_Sep_2012.e1fa622a.jpg",
     "static/media/strava.a72b2b3c.svg": "./static/media/strava.a72b2b3c.svg"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.e8725df1.js",
     "static/js/2.a0177690.chunk.js",
-    "static/css/main.05e05e5e.chunk.css",
-    "static/js/main.c12e99b9.chunk.js"
+    "static/css/main.e831197d.chunk.css",
+    "static/js/main.b7c13930.chunk.js"
   ]
 }
