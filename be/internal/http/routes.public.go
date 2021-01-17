@@ -33,7 +33,7 @@ func GetStravaCallback(c *gin.Context) {
 
 	code := c.Query("code")
 
-	client := strava.NewClient()
+	client := strava.New()
 	athlete, err := client.Authorize(code)
 	if err != nil {
 		log.Println("client.Authorize", err)

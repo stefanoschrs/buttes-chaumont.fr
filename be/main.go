@@ -50,7 +50,7 @@ func main() {
 	http.SetRoutes(router)
 
 	log.Printf("Listening on :%s...\n", os.Getenv("PORT"))
-	if err := router.Run(); err != nil {
+	if err = router.Run(); err != nil {
 		log.Fatal(err)
 	}
 }
